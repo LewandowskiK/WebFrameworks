@@ -1,0 +1,18 @@
+extends layout
+block content
+  form#login.col-md-10.col-xl-3
+    .row.mx-auto.text-xs-center
+      h3 Login
+    .row
+      p Username
+    .row
+      input.form-control.w-100(type='text', name='username', placeholder='username')
+    .row
+      p Password
+    .row
+      input.form-control.w-100(type='password', name='password', placeholder='password')
+    .row
+      a.btn.btn-primary.login-button(type='button', href='/buses') Login
+    p.text-center Not a member?
+    p.text-center
+      a(href='/register') Register Here

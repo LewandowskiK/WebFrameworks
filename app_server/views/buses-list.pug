@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .banner.mx-auto.text-center
+    .col-12.text-xs-center
+      h1 BusFindr
+  .row
+    .col-12.col-md-8.mx-auto
+      each bus in buses
+        .card
+          .card-block
+            h4
+              a(href="/buses")= bus.name
+            each location in bus.locations
+                span.badge.badge-warning= location
