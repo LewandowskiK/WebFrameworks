@@ -1,3 +1,12 @@
+const request = require('request');
+const apiOptions = {
+  server : 'http://localhost:3000'
+};
+if (process.env.NODE_ENV === 'production') {
+  apiOptions.server = 'HEROKU LINK';
+}
+
+
 const login =  function(req, res) {
   res.render('login', { title: 'BusFindr' });
 };
@@ -7,8 +16,9 @@ const register = function(req, res) {
 };
 
 const buses = function(req, res) {
+
   res.render('buses-list', { title: 'BusFindr', 
-  buses:[{name:"Power Travel", locations:["Tralee","Dingle","Killorglin"], stops:[]},
+  buses: [{name:"Power Travel", locations:["Tralee","Dingle","Killorglin"], stops:[]},
   {name:"Hanafins Bus Services", locations:["Tralee","Killarney","Killorglin"], stops:[]},
   {name:"People's bus", locations:["Tralee","Dingle","BlennerVille"], stops:[]},
   {name:"Rose Travel", locations:["Tralee","Dingle","Killorglin"], stops:[]},
@@ -16,7 +26,7 @@ const buses = function(req, res) {
   {name:"Joes Rides", locations:["Tralee","Dingle","BlennerVille"], stops:[]},
   {name:"Kevin McGrath Services Ltd.", locations:["Tralee","Dingle","Killorglin"], stops:[]},
   {name:"Joes Bus Services", locations:["Tralee","Killarney","Killorglin"], stops:[]},
-  {name:"Party Bus", locations:["Tralee","Dingle","BlennerVille"], stops:[]}] 
+  {name:"Party Bus", locations:["Tralee","Dingle","BlennerVille"], stops:[]}]
 })
 };
 

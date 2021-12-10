@@ -1,29 +1,42 @@
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
+let dbURI = 'mongodb+srv://admin:verysecureadminpassword@cluster0.prxtw.mongodb.net/BusFindr?retryWrites=true&w=majority';
+if (process.env.NODE_ENV === 'production') {
+    dbURI = process.env.MONGODB_URI;
+}
+mongoose.connect(dbURI);
 
-const userSchema = new mongoose.Schema({
-name: {type: String, required: true},
-username: {type: String, required: true},
-email: {type: String, required: true},
-pword: {type: String, required: true},
-});   
-
-const stopSchema = new mongoose.Schema({
-name: {type: String, 
-default: ""},
-x: {type: Number},
-y: {type: Number}
+mongoose.connection.on('connected', () => {
+    console.log(`Mongoose connected to database`);
+});
+mongoose.connection.on('error', err => {
+    console.log('Mongoose connection error:', err);
+});
+mongoose.connection.on('disconnected', () => {
+    console.log('Mongoose disconnected');
 });
 
-const busSchema = new mongoose.Schema({
-name: {type: String, required: true},
-locations: [{type: String}],
-stops: [stopSchema],
+const gracefulShutdown = (msg, callback) => {
+    mongoose.connection.close( () => {
+        console.log(`Mongoose disconnected through ${msg}`);
+        callback();
+    });
+};
+
+// For nodemon restarts
+process.once('SIGUSR2', () => {
+    gracefulShutdown('nodemon restart', () => {
+        process.kill(process.pid, 'SIGUSR2');
+    });
 });
-
-/*
-SAMPLE DATA
-
-db.users.insertOne({name: 'John OMahoney', username:'bloonMan1998',email:'JOM@gmail.com', pword:'literally1984'});
-
-db.buses.insertOne({name:'Power Travel',locations:['Tralee','Dingle','Killarney'], stops:[{name: 'Stokers', x:1, y:1},{name:'',x:2,y:2},{name:'Supervalu', x:3, y:3}]});
-*/
+// For app termination
+process.on('SIGINT', () => {
+    gracefulShutdown('app termination', () => {
+        process.exit(0);
+    });
+});
+// For Heroku app termination
+process.on('SIGTERM', () => {
+    gracefulShutdown('Heroku app shutdown', () => {
+        process.exit(0);
+    });
+});

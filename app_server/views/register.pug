@@ -1,46 +1,9 @@
 extends layout
+
 block content
-  //code adapted from: https://bootsnipp.com/snippets/ZldrD
-  .container
-  .row.main
-    .main-login.main-center
-      form.form-horizontal(method='post', action='#')
-        .form-group
-          label.cols-sm-2.control-label(for='name') Your Name
-          .cols-sm-10
-            .input-group
-              span.input-group-addon
-              input#name.form-control(type='text', name='name', placeholder='Enter your Name')
-        .form-group
-          label.cols-sm-2.control-label(for='email') Your Email
-          .cols-sm-10
-            .input-group
-              span.input-group-addon
-              input#email.form-control(type='text', name='email', placeholder='Enter your Email')
-        .form-group
-          label.cols-sm-2.control-label(for='username') Username
-          .cols-sm-10
-            .input-group
-              span.input-group-addon
-              input#username.form-control(type='text', name='username', placeholder='Enter your Username')
-        .form-group
-          label.cols-sm-2.control-label(for='password') Password
-          .cols-sm-10
-            .input-group
-              span.input-group-addon
-              input#password.form-control(type='password', name='password', placeholder='Enter your Password')
-        .form-group
-          label.cols-sm-2.control-label(for='confirm') Confirm Password
-          .cols-sm-10
-            .input-group
-              span.input-group-addon
-              input#confirm.form-control(type='password', name='confirm', placeholder='Confirm your Password')
-        .form-group
-          a.btn.btn-primary.btn-lg.btn-block.login-button(type='button', href='/') Register
-        .login-register
-          p.text-center Already a member?
-          a(href='/') Login Here
+    app-root Loading
 
-      
-
-
+block scripts
+    script(src='/build/runtime.eb17e5afa3691422.js')
+    script(src='/build/polyfills.4619a69bcc51b9b0.js')
+    script(src='/build/main.b5222d1abff87de0.js')
